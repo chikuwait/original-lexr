@@ -20,9 +20,14 @@ lexer(char *text)
         }
         char *pBgn = text;
 
-        if(isdigit(*text))
+        if(*text == '0' && *(text+1) == 'x')
         {
-            while(isdigit(*text) || *text == '.') text++;
+            text+=2;
+            while(isxdigit(*text) || *text == '.') text++;
+        }
+        else if(isdigit(*text))
+        {
+            while(isdigit(*text) || *text == '.' ) text++;
         }
         else if(isalpha(*text))
         {
@@ -36,9 +41,10 @@ lexer(char *text)
         {
             text++;
         }
-        token[ix]=malloc((int)(text-pBgn)+1);
+
+        token[ix] = malloc((int)(text-pBgn)+1);
         strncpy(token[ix],pBgn,(int)(text-pBgn));
-        token[ix][text-pBgn]= '\0';
+        token[ix][text-pBgn] = '\0';
         ix++;
     }
 }
