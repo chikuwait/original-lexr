@@ -28,6 +28,10 @@ lexer(char *text)
         {
             while(isalnum(*text)) text++;
         }
+        else if(isxdigit(*text))
+        {
+            while(isxdigit(*text) || *text == '.') text++;
+        }
         else
         {
             text++;
@@ -41,7 +45,7 @@ lexer(char *text)
 int
 main(void)
 {
-    char buf[1024];
+    char buf[128];
 
     fgets(buf,100,stdin);
     lexer(buf);
